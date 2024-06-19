@@ -18,6 +18,7 @@ const TUserSchema = new Schema<TUser>({
     type: String,
     required: [true, 'passoword is required'],
     maxlength: 40,
+    select: 0,
   },
   phone: {
     type: String,
