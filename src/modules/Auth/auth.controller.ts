@@ -1,13 +1,11 @@
 import httpStatus from 'http-status';
-import catchAsync from '../utils/catchAsync';
+import catchAsync from '../../utils/catchAsync';
 import { AuthServices } from './auth.service';
-import { UserModel } from '../modules/User/user.model';
+import { UserModel } from '../User/user.model';
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
   //const { accessToken } = result;
-
-  console.log(result);
 
   const { accessToken, user } = result;
 

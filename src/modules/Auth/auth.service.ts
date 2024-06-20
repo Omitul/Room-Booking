@@ -1,5 +1,5 @@
-import config from '../config';
-import { UserModel } from '../modules/User/user.model';
+import config from '../../config';
+import { UserModel } from '../User/user.model';
 import { TLoginUser } from './auth.interface';
 import { createToken } from './auth.utils';
 
