@@ -14,4 +14,10 @@ router.post(
   RoomController.createRoom,
 );
 
+router.get(
+  '/api/rooms/:id',
+  auth(USER_ROLE.admin, USER_ROLE.admin, USER_ROLE.user),
+  RoomController.GetRoom,
+);
+
 export const RoomRoutes = router;
