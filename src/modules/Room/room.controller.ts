@@ -14,8 +14,20 @@ const createRoom = catchAsync(async (req, res) => {
   });
 });
 
-const GetRoom = catchAsync(async (req, res) => {
-  const result = await RoomServices.GetRoomFromDb(req.params.id.trim());
+const GetAllRoom = catchAsync(async (req, res) => {
+  const result = await RoomServices.GetRoom();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Rooms retrieved successfully',
+    data: result,
+  });
+});
+
+const GetRoomById = catchAsync(async (req, res) => {
+  const id = req.params.id.trim();
+  const result = await RoomServices.GetRoomFromDbById(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -27,5 +39,6 @@ const GetRoom = catchAsync(async (req, res) => {
 
 export const RoomController = {
   createRoom,
-  GetRoom,
+  GetRoomById,
+  GetAllRoom,
 };

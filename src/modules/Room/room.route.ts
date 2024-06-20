@@ -17,7 +17,13 @@ router.post(
 router.get(
   '/api/rooms/:id',
   auth(USER_ROLE.admin, USER_ROLE.admin, USER_ROLE.user),
-  RoomController.GetRoom,
+  RoomController.GetRoomById,
+);
+
+router.get(
+  '/api/rooms',
+  auth(USER_ROLE.admin, USER_ROLE.admin, USER_ROLE.user),
+  RoomController.GetAllRoom,
 );
 
 export const RoomRoutes = router;

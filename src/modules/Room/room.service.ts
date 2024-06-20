@@ -6,12 +6,17 @@ const CreateRoomIntoDb = async (payload: TRoom) => {
   return result;
 };
 
-const GetRoomFromDb = async (id: string) => {
+const GetRoomFromDbById = async (id: string) => {
   const result = await RoomModel.findById(id);
   return result;
 };
 
+const GetRoom = async () => {
+  const result = await RoomModel.find();
+  return result;
+};
 export const RoomServices = {
   CreateRoomIntoDb,
-  GetRoomFromDb,
+  GetRoomFromDbById,
+  GetRoom,
 };
