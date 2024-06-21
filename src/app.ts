@@ -5,6 +5,7 @@ import { AuthRoutes } from './modules/Auth/auth.route';
 import { RoomRoutes } from './modules/Room/room.route';
 import globalErrorHandler from './middlewares/GlobalErrorHandler';
 import notFound from './middlewares/notFound';
+import { SlotRoutes } from './modules/Slot/slot.route';
 const app = express();
 
 ///its a parser
@@ -16,6 +17,7 @@ app.use(cors());
 app.use('/', UserRoutes);
 app.use('/', AuthRoutes);
 app.use('/', RoomRoutes);
+app.use('/', SlotRoutes);
 
 app.use((req: Request, res: Response) => {
   res.status(404).json({
