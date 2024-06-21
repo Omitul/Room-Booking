@@ -7,15 +7,15 @@ const createRoom = catchAsync(async (req, res) => {
   const result = await RoomServices.CreateRoomIntoDb(req.body);
 
   sendResponse(res, {
-    statusCode: httpStatus.OK,
     success: true,
+    statusCode: httpStatus.OK,
     message: 'Room Added succesfully',
     data: result,
   });
 });
 
 const GetAllRoom = catchAsync(async (req, res) => {
-  const result = await RoomServices.GetRoom();
+  const result = await RoomServices.GetRoomFromDb();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -37,8 +37,34 @@ const GetRoomById = catchAsync(async (req, res) => {
   });
 });
 
+const UpdateRoom = catchAsync(async (req, res) => {
+  const id = req.params.id.trim();
+  const result = await RoomServices.UpdateRoomIntoDb(id, req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Room updated successfully',
+    data: result,
+  });
+});
+
+const DeleteRoom = catchAsync(async (req, res) => {
+  const id = req.params.id.trim();
+  const result = await RoomServices.DeleteRoomFromDb(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Room deleted successfully',
+    data: result,
+  });
+});
+
 export const RoomController = {
   createRoom,
   GetRoomById,
   GetAllRoom,
+  UpdateRoom,
+  DeleteRoom,
 };

@@ -11,4 +11,13 @@ const TRoomSchema: Schema = new Schema({
   isDeleted: { type: Boolean, default: false },
 });
 
+TRoomSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+TRoomSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { $isDeleted: { $ne: true } } });
+  next();
+});
+
 export const RoomModel = model<TRoom>('Room', TRoomSchema);

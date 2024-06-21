@@ -26,4 +26,11 @@ router.get(
   RoomController.GetAllRoom,
 );
 
+router.put('/api/rooms/:id', auth(USER_ROLE.admin), RoomController.DeleteRoom);
+router.delete(
+  '/api/rooms/:id',
+  auth(USER_ROLE.admin),
+  RoomController.DeleteRoom,
+);
+
 export const RoomRoutes = router;
