@@ -12,11 +12,11 @@ router.post(
   BookingController.createBooking,
 );
 
-// router.get(
-//   '/api/rooms/:id',
-//   auth(USER_ROLE.admin, USER_ROLE.admin, USER_ROLE.user),
-//   RoomController.GetRoomById,
-// );
+router.get(
+  '/api/rooms/:id',
+  auth(USER_ROLE.user),
+  BookingController.GetBookings,
+);
 
 // router.get(
 //   '/api/rooms',

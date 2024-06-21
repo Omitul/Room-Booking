@@ -6,6 +6,7 @@ import { RoomRoutes } from './modules/Room/room.route';
 import globalErrorHandler from './middlewares/GlobalErrorHandler';
 import notFound from './middlewares/notFound';
 import { SlotRoutes } from './modules/Slot/slot.route';
+import { BookingRoutes } from './modules/Booking/booking.route';
 const app = express();
 
 ///its a parser
@@ -18,6 +19,7 @@ app.use('/', UserRoutes);
 app.use('/', AuthRoutes);
 app.use('/', RoomRoutes);
 app.use('/', SlotRoutes);
+app.use('/', BookingRoutes);
 
 app.use((req: Request, res: Response) => {
   res.status(404).json({
