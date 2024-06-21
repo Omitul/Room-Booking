@@ -34,6 +34,9 @@ const CreateSlotsIntoDb = async (payload: TSlot) => {
   return Slots;
 };
 
+const FindSlotsFromDb = async () => {};
+
 export const SlotServices = {
   CreateSlotsIntoDb,
+  FindSlotsFromDb,
 };
