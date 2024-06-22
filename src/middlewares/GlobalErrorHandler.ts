@@ -8,6 +8,7 @@ import handleValidationError from '../Error/handleValidationError';
 import handleCastError from '../Error/handleCastError';
 import handleDuplicateError from '../Error/handleDuplicateError';
 import AppError from '../Error/AppError';
+import { TErrorSources } from '../interface/error';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //setting default values
@@ -59,7 +60,6 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     ];
   }
 
-  //ultimate return
   return res.status(statusCode).json({
     success: false,
     message,
@@ -70,14 +70,3 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 };
 
 export default globalErrorHandler;
-
-//pattern
-/*
-success
-message
-errorSources:[
-  path:'',
-  message:''
-]
-stack
-*/
