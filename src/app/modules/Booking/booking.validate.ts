@@ -6,9 +6,6 @@ const CreateTBookingSchema = z.object({
     slots: z.array(z.string().max(50)),
     user: z.string().max(50),
     date: z.string(),
-    totalAmount: z.number().positive(),
-    isConfirmed: z.enum(['confirmed', 'unconfirmed', 'canceled']),
-    isDeleted: z.boolean(),
   }),
 });
 
@@ -18,9 +15,6 @@ const UpdateTBookingSchema = z.object({
     slots: z.string().max(50).optional(),
     user: z.string().max(50).optional(),
     date: z.string().optional(),
-    totalAmount: z.number().positive().optional(),
-    isConfirmed: z.enum(['confirmed', 'unconfirmed', 'canceled']).optional(),
-    isDeleted: z.boolean().optional(),
   }),
 });
 

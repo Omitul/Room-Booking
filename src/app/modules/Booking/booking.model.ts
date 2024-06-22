@@ -11,7 +11,7 @@ const TBookingSchema: Schema = new Schema({
   ],
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   date: { type: String, required: true },
-  totalAmount: { type: Number, required: true },
+  totalAmount: { type: Number, default: 0 },
   isConfirmed: {
     type: String,
     enum: ['confirmed', 'unconfirmed', 'canceled'],

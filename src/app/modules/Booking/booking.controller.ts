@@ -4,9 +4,21 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import config from '../../config';
+import { RoomModel } from '../Room/room.model';
+import { Types } from 'mongoose';
 
 const createBooking = catchAsync(async (req, res) => {
   const result = await BookingServices.createBookingIntoDb(req.body);
+  const { room, slots } = result;
+  const howManySlots = slots.length;
+  const query = await RoomModel.findById(room).select('pricePerSlot');
+  // console.log(query);
+  const pricePerSlot = query?.pricePerSlot as number;
+  // console.log(pricePerSlot);
+  // console.log(howManySlots);
+  const totalAmount = howManySlots * pricePerSlot;
+
+  result.totalAmount = totalAmount;
 
   sendResponse(res, {
     success: true,
@@ -29,6 +41,7 @@ const GetBookings = catchAsync(async (req, res) => {
 const UpdateBookings = catchAsync(async (req, res) => {
   const id = req.params.id.trim();
   const result = await BookingServices.UpdateRoomIntoDb(id, req.body);
+  console.log(result);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -68,8 +81,10 @@ const GetUserBookings = catchAsync(async (req, res) => {
     config.jwt_access_secret as string,
   ) as JwtPayload;
 
+  console.log('aihai');
+
   const { userId } = decoded;
-  console.log(userId);
+  //console.log(userId);
 
   const result = await BookingServices.GetUserBooking(userId);
 
