@@ -8,27 +8,28 @@ import validateRequest from '../../middlewares/validateRequest';
 const router = express.Router();
 
 router.post(
-  '/api/bookings',
-  auth(USER_ROLE.user),
+  '/bookings',
   validateRequest(BookingValidation.CreateTBookingSchema),
+  auth(USER_ROLE.user),
   BookingController.createBooking,
 );
 
+router.get('/bookings', auth(USER_ROLE.admin), BookingController.GetBookings);
 router.get(
-  '/api/bookings',
-  auth(USER_ROLE.admin),
-  BookingController.GetBookings,
+  '/my-bookings',
+  auth(USER_ROLE.user),
+  BookingController.GetUserBookings,
 );
 
 router.put(
-  '/api/bookings/:id',
-  auth(USER_ROLE.admin),
+  '/bookings/:id',
   validateRequest(BookingValidation.UpdateTBookingSchema),
+  auth(USER_ROLE.admin),
   BookingController.UpdateBookings,
 );
 
 router.delete(
-  '/api/bookings/:id',
+  '/bookings/:id',
   auth(USER_ROLE.admin),
   BookingController.UpdateBookings,
 );

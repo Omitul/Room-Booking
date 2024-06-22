@@ -12,8 +12,8 @@ const CreateSlotsIntoDb = async (payload: TSlot) => {
   const numberOfSlots = Math.floor(total_duration / 60);
   const Slots = [];
   for (let i = 0; i < numberOfSlots; i++) {
-    const StartTime = minutesToTime(StartTimeMinutes + i * 60);
-    const EndTime = minutesToTime(StartTimeMinutes + (i + 1) * 60);
+    const startTime = minutesToTime(StartTimeMinutes + i * 60);
+    const endTime = minutesToTime(StartTimeMinutes + (i + 1) * 60);
 
     const slot = {
       room,
@@ -22,8 +22,8 @@ const CreateSlotsIntoDb = async (payload: TSlot) => {
       endTime,
       isBooked,
     };
-    await SlotModel.create(slot);
-    Slots.push(slot);
+    const result = await SlotModel.create(slot);
+    Slots.push(result);
   }
 
   function minutesToTime(minutes: number): string {

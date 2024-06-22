@@ -17,6 +17,7 @@ const createRoom = catchAsync(async (req, res) => {
 const GetAllRoom = catchAsync(async (req, res) => {
   const result = await RoomServices.GetRoomFromDb();
   console.log(result);
+  console.log(result.length);
 
   if (result.length == 0) {
     res.status(404).json({

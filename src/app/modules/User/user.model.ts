@@ -13,6 +13,7 @@ const TUserSchema = new Schema<TUser>({
     type: String,
     required: [true, 'email is required'],
     maxlength: 40,
+    unique: true,
   },
   password: {
     type: String,

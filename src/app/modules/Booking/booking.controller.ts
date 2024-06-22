@@ -38,7 +38,7 @@ const UpdateBookings = catchAsync(async (req, res) => {
   });
 });
 
-const DeleteBookin = catchAsync(async (req, res) => {
+const DeleteBooking = catchAsync(async (req, res) => {
   const id = req.params.id.trim();
   const result = await BookingServices.DeleteBookingFromDb(id);
 
@@ -50,7 +50,7 @@ const DeleteBookin = catchAsync(async (req, res) => {
   });
 });
 
-const GetUserRoom = catchAsync(async (req, res) => {
+const GetUserBookings = catchAsync(async (req, res) => {
   const authHead = req.headers.authorization;
   let token;
 
@@ -85,5 +85,6 @@ export const BookingController = {
   createBooking,
   GetBookings,
   UpdateBookings,
-  GetUserRoom,
+  GetUserBookings,
+  DeleteBooking,
 };

@@ -8,16 +8,17 @@ const createBookingIntoDb = async (payload: TBooking) => {
 
 const GetBookingsFromDb = async () => {
   const result = await BookingModel.find()
-    .populate('Slot')
-    .populate('Room')
-    .populate('User');
+    .populate('slots')
+    .populate('room')
+    .populate('user');
   return result;
 };
 
 const GetUserBooking = async (id: string) => {
-  const result = await BookingModel.findById(id)
-    .populate('Slot')
-    .populate('Room');
+  const result = await BookingModel.find({ user: id })
+    .populate('slots')
+    .populate('room')
+    .select('-user');
   return result;
 };
 
