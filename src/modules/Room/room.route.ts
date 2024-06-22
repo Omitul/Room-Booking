@@ -32,6 +32,7 @@ router.put(
   auth(USER_ROLE.admin),
   RoomController.UpdateRoom,
 );
+
 router.delete(
   '/api/rooms/:id',
   auth(USER_ROLE.admin),
