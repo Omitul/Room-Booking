@@ -11,7 +11,19 @@ export const CreateRoomSchema = z.object({
     isDeleted: z.boolean().default(false),
   }),
 });
+export const UpdateRoomSchema = z.object({
+  body: z.object({
+    name: z.string().max(50).optional(),
+    roomNo: z.number().int().positive().optional(),
+    floorNo: z.number().int().positive().optional(),
+    capacity: z.number().int().positive().optional(),
+    pricePerSlot: z.number().positive().optional(),
+    amenities: z.array(z.string()).default([]).optional(),
+    isDeleted: z.boolean().default(false).optional(),
+  }),
+});
 
 export const RoomValidation = {
   CreateRoomSchema,
+  UpdateRoomSchema,
 };

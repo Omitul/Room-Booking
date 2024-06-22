@@ -2,6 +2,9 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { BookingServices } from './booking.service';
+import { BookingModel } from './booking.model';
+import config from '../../config';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const createBooking = catchAsync(async (req, res) => {
   const result = await BookingServices.createBookingIntoDb(req.body);
@@ -48,8 +51,40 @@ const DeleteBookin = catchAsync(async (req, res) => {
   });
 });
 
+const GetUserRoom = catchAsync(async (req, res) => {
+  const authHead = req.headers.authorization;
+  let token;
+
+  if (authHead && authHead.startsWith('Bearer ')) {
+    token = authHead.split(' ')[1];
+  }
+
+  if (!token) {
+    success: httpStatus.UNAUTHORIZED;
+    throw new Error('You are not authorized!');
+  }
+
+  const decoded = jwt.verify(
+    token,
+    config.jwt_access_secret as string,
+  ) as JwtPayload;
+
+  const { userId } = decoded;
+  console.log(userId);
+
+  const result = await BookingServices.GetUserBooking(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User bookings retrieved successfully',
+    data: result,
+  });
+});
+
 export const BookingController = {
   createBooking,
   GetBookings,
   UpdateBookings,
+  GetUserRoom,
 };

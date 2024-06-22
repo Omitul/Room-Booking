@@ -26,7 +26,12 @@ router.get(
   RoomController.GetAllRoom,
 );
 
-router.put('/api/rooms/:id', auth(USER_ROLE.admin), RoomController.DeleteRoom);
+router.put(
+  '/api/rooms/:id',
+  validateRequest(RoomValidation.UpdateRoomSchema),
+  auth(USER_ROLE.admin),
+  RoomController.UpdateRoom,
+);
 router.delete(
   '/api/rooms/:id',
   auth(USER_ROLE.admin),
