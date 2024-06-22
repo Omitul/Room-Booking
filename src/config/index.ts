@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
+import path = require('path');
 
-dotenv.config();
+dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 export default {
   NODE_ENV: process.env.NODE_ENV,

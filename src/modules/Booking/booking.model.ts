@@ -11,4 +11,13 @@ const TBookingSchema: Schema = new Schema({
   isDeleted: { type: Boolean, default: false },
 });
 
+TBookingSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+TBookingSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { $isDeleted: { $ne: true } } });
+  next();
+});
+
 export const BookingModel = model<TBooking>('Booking', TBookingSchema);

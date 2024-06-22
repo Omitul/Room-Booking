@@ -13,22 +13,21 @@ router.post(
 );
 
 router.get(
-  '/api/rooms/:id',
-  auth(USER_ROLE.user),
+  '/api/bookings',
+  auth(USER_ROLE.admin),
   BookingController.GetBookings,
 );
 
-// router.get(
-//   '/api/rooms',
-//   auth(USER_ROLE.admin, USER_ROLE.admin, USER_ROLE.user),
-//   RoomController.GetAllRoom,
-// );
+router.post(
+  '/api/bookings/:id',
+  auth(USER_ROLE.admin),
+  BookingController.UpdateBookings,
+);
 
-// router.put('/api/rooms/:id', auth(USER_ROLE.admin), RoomController.DeleteRoom);
-// router.delete(
-//   '/api/rooms/:id',
-//   auth(USER_ROLE.admin),
-//   RoomController.DeleteRoom,
-// );
+router.delete(
+  '/api/bookings/:id',
+  auth(USER_ROLE.admin),
+  BookingController.UpdateBookings,
+);
 
 export const BookingRoutes = router;
