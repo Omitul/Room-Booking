@@ -1,12 +1,13 @@
 import cors from 'cors';
 import express, { Request, Response } from 'express';
-import { UserRoutes } from './modules/User/user.route';
-import { AuthRoutes } from './modules/Auth/auth.route';
-import { RoomRoutes } from './modules/Room/room.route';
-import globalErrorHandler from './middlewares/GlobalErrorHandler';
-import notFound from './middlewares/notFound';
-import { SlotRoutes } from './modules/Slot/slot.route';
-import { BookingRoutes } from './modules/Booking/booking.route';
+import router from './app/modules/User/user.route';
+import { AuthRoutes } from './app/modules/Auth/auth.route';
+import { RoomRoutes } from './app/modules/Room/room.route';
+import { SlotRoutes } from './app/modules/Slot/slot.route';
+import { BookingRoutes } from './app/modules/Booking/booking.route';
+import globalErrorHandler from './app/middlewares/GlobalErrorHandler';
+import notFound from './app/middlewares/notFound';
+
 const app = express();
 
 ///its a parser
@@ -15,11 +16,11 @@ app.use(express.json());
 app.use(cors());
 
 ///application routes
-app.use('/', UserRoutes);
-app.use('/', AuthRoutes);
-app.use('/', RoomRoutes);
-app.use('/', SlotRoutes);
-app.use('/', BookingRoutes);
+app.use('/api', router);
+app.use('/api', AuthRoutes);
+app.use('/api', RoomRoutes);
+app.use('/api', SlotRoutes);
+app.use('/api', BookingRoutes);
 
 app.use((req: Request, res: Response) => {
   res.status(404).json({

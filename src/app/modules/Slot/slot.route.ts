@@ -1,12 +1,14 @@
 import express from 'express';
 
-import auth from '../../middlewares/auth';
 import { USER_ROLE } from '../User/user.constants';
 import { SlotsController } from './slot.controller';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
 router.post('/api/slots', auth(USER_ROLE.admin), SlotsController.CreateSlot);
+
+// router.get('/api/slots/availability', SlotsController.getSlot);
 
 // router.get(
 //   '/api/rooms/:id',

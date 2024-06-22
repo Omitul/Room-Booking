@@ -12,7 +12,7 @@ const TRoomSchema: Schema = new Schema({
 });
 
 TRoomSchema.pre('find', function (next) {
-  this.find({ isDeleted: { $ne: true } });
+  this.where({ isDeleted: { $ne: true } });
   next();
 });
 TRoomSchema.pre('aggregate', function (next) {

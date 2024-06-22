@@ -1,42 +1,38 @@
 import express from 'express';
 import { RoomController } from './room.controller';
-import auth from '../../middlewares/auth';
 import { USER_ROLE } from '../User/user.constants';
-import validateRequest from '../../middlewares/validateRequest';
 import { RoomValidation } from './room.validate';
+import validateRequest from '../../middlewares/validateRequest';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
 router.post(
-  '/api/rooms',
+  '/rooms',
   auth(USER_ROLE.admin),
   validateRequest(RoomValidation.CreateRoomSchema),
   RoomController.createRoom,
 );
 
 router.get(
-  '/api/rooms/:id',
+  '/rooms/:id',
   auth(USER_ROLE.admin, USER_ROLE.admin, USER_ROLE.user),
   RoomController.GetRoomById,
 );
 
 router.get(
-  '/api/rooms',
+  '/rooms',
   auth(USER_ROLE.admin, USER_ROLE.admin, USER_ROLE.user),
   RoomController.GetAllRoom,
 );
 
 router.put(
-  '/api/rooms/:id',
+  '/rooms/:id',
   validateRequest(RoomValidation.UpdateRoomSchema),
   auth(USER_ROLE.admin),
   RoomController.UpdateRoom,
 );
 
-router.delete(
-  '/api/rooms/:id',
-  auth(USER_ROLE.admin),
-  RoomController.DeleteRoom,
-);
+router.delete('/rooms/:id', auth(USER_ROLE.admin), RoomController.DeleteRoom);
 
 export const RoomRoutes = router;

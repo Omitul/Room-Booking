@@ -1,10 +1,9 @@
 import httpStatus from 'http-status';
+import { BookingServices } from './booking.service';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
-import { BookingServices } from './booking.service';
-import { BookingModel } from './booking.model';
 import config from '../../config';
-import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const createBooking = catchAsync(async (req, res) => {
   const result = await BookingServices.createBookingIntoDb(req.body);

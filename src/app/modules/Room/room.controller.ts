@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
-import catchAsync from '../../utils/catchAsync';
 import { RoomServices } from './room.service';
+import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 
 const createRoom = catchAsync(async (req, res) => {
@@ -16,6 +16,16 @@ const createRoom = catchAsync(async (req, res) => {
 
 const GetAllRoom = catchAsync(async (req, res) => {
   const result = await RoomServices.GetRoomFromDb();
+  console.log(result);
+
+  if (result.length == 0) {
+    res.status(404).json({
+      success: false,
+      statusCode: 404,
+      message: 'No Data Found',
+      data: result,
+    });
+  }
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -29,6 +39,14 @@ const GetRoomById = catchAsync(async (req, res) => {
   const id = req.params.id.trim();
   const result = await RoomServices.GetRoomFromDbById(id);
 
+  if (result?.isDeleted == true) {
+    res.status(404).json({
+      success: false,
+      statusCode: 404,
+      message: 'No Data Found',
+      data: [],
+    });
+  }
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

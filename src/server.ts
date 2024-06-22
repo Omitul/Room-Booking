@@ -1,14 +1,9 @@
-import config from './app/config';
 import mongoose from 'mongoose';
 import app from './app';
-
-console.log('hello');
-console.log('DATABASE_URL:', config.database_url as string); // Add this line
+import config from './app/config';
 
 async function main() {
   try {
-    console.log('DATABASE_URL:', config.database_url as string); // Add this line
-    console.log('Connecting to MongoDB:', config.database_url as string);
     await mongoose.connect(config.database_url as string);
 
     app.listen(config.port, () => {
