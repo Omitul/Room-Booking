@@ -30,12 +30,12 @@ const createBooking = catchAsync(async (req, res) => {
 
 const GetBookings = catchAsync(async (req, res) => {
   const result = await BookingServices.GetBookingsFromDb();
-  if (result == null) {
+  if (result.length == 0) {
     res.status(404).json({
       success: false,
       statusCode: 404,
       message: 'No Data Found',
-      data: [],
+      data: result,
     });
   }
   sendResponse(res, {
@@ -88,10 +88,18 @@ const GetUserBookings = catchAsync(async (req, res) => {
   ) as JwtPayload;
 
   const { userId } = decoded;
-  //console.log(userId);
+  console.log('user:' + userId);
 
   const result = await BookingServices.GetUserBooking(userId);
-
+  console.log(result);
+  if (result.length == 0) {
+    res.status(404).json({
+      success: false,
+      statusCode: 404,
+      message: 'No Data Found',
+      data: result,
+    });
+  }
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -3,6 +3,7 @@ import { UserServices } from './user.service';
 
 const createUser = catchAsync(async (req, res) => {
   const result = await UserServices.CreateUserintoDb(req.body);
+
   const userData = {
     /// excluding password field
     name: result.name,

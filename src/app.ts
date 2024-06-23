@@ -7,7 +7,6 @@ import { SlotRoutes } from './app/modules/Slot/slot.route';
 import { BookingRoutes } from './app/modules/Booking/booking.route';
 import globalErrorHandler from './app/middlewares/GlobalErrorHandler';
 import notFound from './app/middlewares/notFound';
-import httpStatus from 'http-status';
 
 const app = express();
 
@@ -23,12 +22,12 @@ app.use('/api', RoomRoutes);
 app.use('/api', SlotRoutes);
 app.use('/api', BookingRoutes);
 
+app.use(globalErrorHandler);
+app.use(notFound);
+
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
-
-app.use(globalErrorHandler);
-app.use(notFound);
 
 console.log(process.cwd());
 

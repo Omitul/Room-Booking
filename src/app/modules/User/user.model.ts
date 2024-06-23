@@ -48,5 +48,6 @@ TUserSchema.post('save', function (doc, next) {
   doc.password = '';
   next();
 });
+TUserSchema.index({ email: 1 }, { unique: true });
 
 export const UserModel = model<TUser>('User', TUserSchema);

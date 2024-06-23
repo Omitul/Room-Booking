@@ -3,7 +3,7 @@ import { TRoom } from './room.interface';
 
 const TRoomSchema: Schema = new Schema({
   name: { type: String, required: true },
-  roomNo: { type: String, required: true },
+  roomNo: { type: Number, required: true, unique: true },
   floorNo: { type: Number, required: true },
   capacity: { type: Number, required: true },
   pricePerSlot: { type: Number, required: true },

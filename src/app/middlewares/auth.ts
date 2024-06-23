@@ -45,7 +45,11 @@ const auth = (...requiredRoles: TUserRole[]) => {
       const user = await UserModel.findById(userId);
 
       if (!user) {
-        throw new AppError(httpStatus.NOT_FOUND, 'This user doesnt exits');
+        res.status(httpStatus.UNAUTHORIZED).json({
+          success: false,
+          statusCode: httpStatus.UNAUTHORIZED,
+          message: 'You have no access to this route',
+        });
       }
       if (requiredRoles && !requiredRoles.includes(role)) {
         res.status(httpStatus.UNAUTHORIZED).json({
