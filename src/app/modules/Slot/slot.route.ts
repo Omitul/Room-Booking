@@ -7,6 +7,7 @@ import auth from '../../middlewares/auth';
 const router = express.Router();
 
 router.post('/slots', auth(USER_ROLE.admin), SlotsController.CreateSlot);
+router.get('/slots/availability', SlotsController.getSlot);
 
 // router.get('/api/slots/availability', SlotsController.getSlot);
 

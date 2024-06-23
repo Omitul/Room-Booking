@@ -1,3 +1,4 @@
+import { object } from 'joi';
 import { TSlot } from './slot.interface';
 import { SlotModel } from './slot.model';
 
@@ -34,7 +35,27 @@ const CreateSlotsIntoDb = async (payload: TSlot) => {
   return Slots;
 };
 
-const FindSlotsFromDb = async () => {};
+const FindSlotsFromDb = async (req: any) => {
+  console.log(req);
+  if (Object.keys(req).length) {
+    const { date, roomId } = req;
+
+    const query: any = { isBooked: false };
+    if (date) {
+      query.date = date.trim();
+    }
+
+    if (roomId) {
+      query.room = roomId.trim();
+    }
+
+    const result = SlotModel.find(query);
+    return result;
+  } else {
+    const result = SlotModel.find({ isBooked: false });
+    return result;
+  }
+};
 
 export const SlotServices = {
   CreateSlotsIntoDb,

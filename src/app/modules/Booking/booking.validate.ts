@@ -12,7 +12,7 @@ const CreateTBookingSchema = z.object({
 const UpdateTBookingSchema = z.object({
   body: z.object({
     room: z.string().max(50).optional(),
-    slots: z.string().max(50).optional(),
+    slots: z.array(z.string().max(50)),
     user: z.string().max(50).optional(),
     date: z.string().optional(),
   }),
