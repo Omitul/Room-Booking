@@ -5,15 +5,16 @@ import sendResponse from '../../utils/sendResponse';
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
-  //const { accessToken } = result;
+  const { user } = result;
 
   //console.log(req.body);
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
+  res.status(httpStatus.OK).json({
     success: true,
+    statusCode: httpStatus.OK,
     message: 'User logged in successfully',
-    data: result,
+    token: result.token,
+    data: user,
   });
 });
 
