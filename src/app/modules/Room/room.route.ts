@@ -20,11 +20,7 @@ router.get(
   RoomController.GetRoomById,
 );
 
-router.get(
-  '/rooms',
-  auth(USER_ROLE.admin, USER_ROLE.admin, USER_ROLE.user),
-  RoomController.GetAllRoom,
-);
+router.get('/rooms', RoomController.GetAllRoom);
 
 router.put(
   '/rooms/:id',
