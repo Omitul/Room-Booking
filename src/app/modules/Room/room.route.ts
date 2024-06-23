@@ -14,11 +14,7 @@ router.post(
   RoomController.createRoom,
 );
 
-router.get(
-  '/rooms/:id',
-  auth(USER_ROLE.admin, USER_ROLE.admin, USER_ROLE.user),
-  RoomController.GetRoomById,
-);
+router.get('/rooms/:id', RoomController.GetRoomById);
 
 router.get('/rooms', RoomController.GetAllRoom);
 
