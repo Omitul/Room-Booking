@@ -16,7 +16,7 @@ const CreateSlot = catchAsync(async (req, res) => {
 
 const getSlot = catchAsync(async (req, res) => {
   const result = await SlotServices.FindSlotsFromDb(req.query);
-  if (result == null) {
+  if (result.length == 0) {
     res.status(404).json({
       success: false,
       statusCode: 404,
