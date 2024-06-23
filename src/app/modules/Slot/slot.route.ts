@@ -3,10 +3,17 @@ import express from 'express';
 import { USER_ROLE } from '../User/user.constants';
 import { SlotsController } from './slot.controller';
 import auth from '../../middlewares/auth';
+import validateRequest from '../../middlewares/validateRequest';
+import CreateSlotSchema from './slot.validate';
 
 const router = express.Router();
 
-router.post('/slots', auth(USER_ROLE.admin), SlotsController.CreateSlot);
+router.post(
+  '/slots',
+  validateRequest(CreateSlotSchema),
+  auth(USER_ROLE.admin),
+  SlotsController.CreateSlot,
+);
 router.get('/slots/availability', SlotsController.getSlot);
 
 // router.get('/api/slots/availability', SlotsController.getSlot);
