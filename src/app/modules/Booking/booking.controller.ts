@@ -5,6 +5,7 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import config from '../../config';
 import { RoomModel } from '../Room/room.model';
+import { BookingModel } from './booking.model';
 
 const createBooking = catchAsync(async (req, res) => {
   const result = await BookingServices.createBookingIntoDb(req.body);
@@ -19,6 +20,12 @@ const createBooking = catchAsync(async (req, res) => {
   const totalAmount = howManySlots * pricePerSlot;
 
   result.totalAmount = totalAmount;
+  //saving the updated result
+  await BookingModel.findByIdAndUpdate(
+    result._id,
+    { totalAmount: totalAmount },
+    { new: true },
+  );
 
   sendResponse(res, {
     success: true,
@@ -30,6 +37,7 @@ const createBooking = catchAsync(async (req, res) => {
 
 const GetBookings = catchAsync(async (req, res) => {
   const result = await BookingServices.GetBookingsFromDb();
+
   if (result.length == 0) {
     res.status(404).json({
       success: false,
@@ -91,7 +99,6 @@ const GetUserBookings = catchAsync(async (req, res) => {
   console.log('user:' + userId);
 
   const result = await BookingServices.GetUserBooking(userId);
-  console.log(result);
   if (result.length == 0) {
     res.status(404).json({
       success: false,

@@ -28,6 +28,7 @@ const GetBookingsFromDb = async () => {
 };
 
 const GetUserBooking = async (id: string) => {
+  console.log(id);
   const result = await BookingModel.find({ user: id })
     .populate('slots')
     .populate('room')
