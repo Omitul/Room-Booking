@@ -7,6 +7,7 @@ import { SlotRoutes } from './app/modules/Slot/slot.route';
 import { BookingRoutes } from './app/modules/Booking/booking.route';
 import globalErrorHandler from './app/middlewares/GlobalErrorHandler';
 import notFound from './app/middlewares/notFound';
+import httpStatus from 'http-status';
 
 const app = express();
 
@@ -21,13 +22,6 @@ app.use('/api', AuthRoutes);
 app.use('/api', RoomRoutes);
 app.use('/api', SlotRoutes);
 app.use('/api', BookingRoutes);
-
-app.use((req: Request, res: Response) => {
-  res.status(404).json({
-    success: false,
-    message: 'Route not found',
-  });
-});
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');

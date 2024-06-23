@@ -12,7 +12,11 @@ const auth = (...requiredRoles: TUserRole[]) => {
     const authHead = req.headers.authorization;
 
     if (!authHead) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+      res.status(httpStatus.UNAUTHORIZED).json({
+        success: false,
+        statusCode: httpStatus.UNAUTHORIZED,
+        message: 'You have no access to this route',
+      });
     }
 
     let token;
@@ -22,31 +26,38 @@ const auth = (...requiredRoles: TUserRole[]) => {
     }
 
     if (!token) {
-      success: httpStatus.UNAUTHORIZED;
-      throw new Error('You are not authorized!');
+      res.status(httpStatus.UNAUTHORIZED).json({
+        success: false,
+        statusCode: httpStatus.UNAUTHORIZED,
+        message: 'You have no access to this route',
+      });
+    } else {
+      const decoded = jwt.verify(
+        token,
+        config.jwt_access_secret as string,
+      ) as JwtPayload;
+
+      //console.log(decoded);
+
+      const { role, userId } = decoded;
+      console.log(userId);
+
+      const user = await UserModel.findById(userId);
+
+      if (!user) {
+        throw new AppError(httpStatus.NOT_FOUND, 'This user doesnt exits');
+      }
+      if (requiredRoles && !requiredRoles.includes(role)) {
+        res.status(httpStatus.UNAUTHORIZED).json({
+          success: false,
+          statusCode: httpStatus.UNAUTHORIZED,
+          message: 'You have no access to this route',
+        });
+      }
+
+      req.user = decoded as JwtPayload;
+      next();
     }
-
-    const decoded = jwt.verify(
-      token,
-      config.jwt_access_secret as string,
-    ) as JwtPayload;
-
-    //console.log(decoded);
-
-    const { role, userId } = decoded;
-    console.log(userId);
-
-    const user = await UserModel.findById(userId);
-
-    if (!user) {
-      throw new AppError(httpStatus.NOT_FOUND, 'This user doesnt exits');
-    }
-    if (requiredRoles && !requiredRoles.includes(role)) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
-    }
-
-    req.user = decoded as JwtPayload;
-    next();
   });
 };
 
