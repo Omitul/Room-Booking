@@ -30,7 +30,14 @@ const createBooking = catchAsync(async (req, res) => {
 
 const GetBookings = catchAsync(async (req, res) => {
   const result = await BookingServices.GetBookingsFromDb();
-
+  if (result == null) {
+    res.status(404).json({
+      success: false,
+      statusCode: 404,
+      message: 'No Data Found',
+      data: [],
+    });
+  }
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

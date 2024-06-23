@@ -12,8 +12,8 @@ const TUserSchema = new Schema<TUser>({
   email: {
     type: String,
     required: [true, 'email is required'],
-    maxlength: 40,
     unique: true,
+    maxlength: 40,
   },
   password: {
     type: String,
