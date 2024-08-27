@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const CreateRoomSchema = z.object({
   body: z.object({
+    image: z.string(),
     name: z.string().max(50),
     roomNo: z.number().int().positive(),
     floorNo: z.number().int().positive(),
@@ -13,6 +14,7 @@ export const CreateRoomSchema = z.object({
 });
 export const UpdateRoomSchema = z.object({
   body: z.object({
+    image: z.string(),
     name: z.string().max(50).optional(),
     roomNo: z.number().int().positive().optional(),
     floorNo: z.number().int().positive().optional(),

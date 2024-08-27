@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import { TRoom } from './room.interface';
 
 const TRoomSchema: Schema = new Schema({
+  image: { type: String, required: true },
   name: { type: String, required: true },
   roomNo: { type: Number, required: true, unique: true },
   floorNo: { type: Number, required: true },
