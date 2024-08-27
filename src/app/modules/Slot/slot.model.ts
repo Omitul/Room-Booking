@@ -6,7 +6,6 @@ const TSlotSchema: Schema = new Schema({
   date: { type: String, required: true },
   startTime: { type: String, required: true },
   endTime: { type: String, required: true },
-  isBooked: { type: Boolean, required: true },
 });
 
 export const SlotModel = model<TSlot>('Slot', TSlotSchema);

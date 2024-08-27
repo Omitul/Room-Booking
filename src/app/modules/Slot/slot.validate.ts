@@ -5,7 +5,6 @@ const CreateSlotSchema = z.object({
     date: z.string().max(40),
     startTime: z.string().max(40),
     endTime: z.string().max(40),
-    isBooked: z.boolean(),
   }),
 });
 
