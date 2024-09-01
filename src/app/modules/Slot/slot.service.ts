@@ -49,17 +49,17 @@ const FindSlotsFromDb = async (req: any) => {
       query.room = roomId.trim();
     }
 
-    const result = SlotModel.find(query);
+    const result = SlotModel.find(req);
     return result;
   } else {
-    const result = SlotModel.find({ isBooked: false });
+    const result = SlotModel.find();
     return result;
   }
 };
 
-const DeleteSlotFromDb = async (id: string) => {
+const DeleteSlotFromDb = async (_id: string) => {
   const result = await SlotModel.findByIdAndUpdate(
-    id,
+    _id,
     { isDeleted: true },
     {
       new: true,
@@ -68,7 +68,7 @@ const DeleteSlotFromDb = async (id: string) => {
   return result;
 };
 
-const UpdateDRoomIntoDb = async (id: string, payload: Partial<TSlot>) => {
+const UpdateDSlotIntoDb = async (id: string, payload: Partial<TSlot>) => {
   const result = await SlotModel.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });
@@ -79,5 +79,5 @@ export const SlotServices = {
   CreateSlotsIntoDb,
   FindSlotsFromDb,
   DeleteSlotFromDb,
-  UpdateDRoomIntoDb,
+  UpdateDSlotIntoDb,
 };

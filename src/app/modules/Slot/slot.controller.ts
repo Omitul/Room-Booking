@@ -15,6 +15,8 @@ const CreateSlot = catchAsync(async (req, res) => {
 });
 
 const getSlot = catchAsync(async (req, res) => {
+  console.log('asche');
+  console.log(req.query);
   const result = await SlotServices.FindSlotsFromDb(req.query);
   if (result.length == 0) {
     res.status(404).json({
@@ -24,6 +26,7 @@ const getSlot = catchAsync(async (req, res) => {
       data: [],
     });
   }
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -36,6 +39,8 @@ const DeleteSlot = catchAsync(async (req, res) => {
   const id = req.params.id.trim();
   const result = await SlotServices.DeleteSlotFromDb(id);
 
+  console.log('ID', id);
+
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -46,7 +51,7 @@ const DeleteSlot = catchAsync(async (req, res) => {
 
 const UpdateSlot = catchAsync(async (req, res) => {
   const id = req.params.id.trim();
-  const result = await SlotServices.UpdateDRoomIntoDb(id, req.body);
+  const result = await SlotServices.UpdateDSlotIntoDb(id, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

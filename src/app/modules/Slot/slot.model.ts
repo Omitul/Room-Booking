@@ -6,6 +6,17 @@ const TSlotSchema: Schema = new Schema({
   date: { type: String, required: true },
   startTime: { type: String, required: true },
   endTime: { type: String, required: true },
+  isBooked: { type: Boolean, default: false },
+  isDeleted: { type: Boolean, default: false },
+});
+
+TSlotSchema.pre('find', function (next) {
+  this.where({ isDeleted: { $ne: true } });
+  next();
+});
+TSlotSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
 });
 
 export const SlotModel = model<TSlot>('Slot', TSlotSchema);
