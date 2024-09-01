@@ -2,10 +2,10 @@ import { z } from 'zod';
 
 export const CreateRoomSchema = z.object({
   body: z.object({
-    image: z.string(),
-    name: z.string().max(50),
+    image: z.array(z.string()).default([]),
     roomNo: z.number().int().positive(),
     floorNo: z.number().int().positive(),
+    name: z.string().max(50),
     capacity: z.number().int().positive(),
     pricePerSlot: z.number().positive(),
     amenities: z.array(z.string()).default([]),
@@ -14,7 +14,7 @@ export const CreateRoomSchema = z.object({
 });
 export const UpdateRoomSchema = z.object({
   body: z.object({
-    image: z.string().optional(),
+    image: z.array(z.string()).default([]).optional(),
     name: z.string().max(50).optional(),
     roomNo: z.number().int().positive().optional(),
     floorNo: z.number().int().positive().optional(),

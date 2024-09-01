@@ -1,6 +1,6 @@
 export type TRoom = {
   image: string;
-  name: string;
+  name: string[];
   roomNo: number;
   floorNo: number;
   capacity: number;
