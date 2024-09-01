@@ -11,4 +11,6 @@ router.post(
   UserController.createUser,
 );
 
+router.get('/auth/signup/:id', UserController.getUser);
+
 export default router;
