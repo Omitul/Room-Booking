@@ -14,7 +14,7 @@ export const CreateRoomSchema = z.object({
 });
 export const UpdateRoomSchema = z.object({
   body: z.object({
-    image: z.string(),
+    image: z.string().optional(),
     name: z.string().max(50).optional(),
     roomNo: z.number().int().positive().optional(),
     floorNo: z.number().int().positive().optional(),

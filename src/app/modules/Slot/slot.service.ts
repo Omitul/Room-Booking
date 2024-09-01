@@ -57,7 +57,27 @@ const FindSlotsFromDb = async (req: any) => {
   }
 };
 
+const DeleteSlotFromDb = async (id: string) => {
+  const result = await SlotModel.findByIdAndUpdate(
+    id,
+    { isDeleted: true },
+    {
+      new: true,
+    },
+  );
+  return result;
+};
+
+const UpdateDRoomIntoDb = async (id: string, payload: Partial<TSlot>) => {
+  const result = await SlotModel.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+  });
+  return result;
+};
+
 export const SlotServices = {
   CreateSlotsIntoDb,
   FindSlotsFromDb,
+  DeleteSlotFromDb,
+  UpdateDRoomIntoDb,
 };

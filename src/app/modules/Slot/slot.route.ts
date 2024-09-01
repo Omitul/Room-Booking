@@ -15,6 +15,8 @@ router.post(
   SlotsController.CreateSlot,
 );
 router.get('/slots/availability', SlotsController.getSlot);
+router.delete('/slots/:id', SlotsController.DeleteSlot);
+router.put('/slots/:id', SlotsController.UpdateSlot);
 
 // router.get('/api/slots/availability', SlotsController.getSlot);
 
