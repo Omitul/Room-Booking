@@ -20,11 +20,22 @@ const createBookingIntoDb = async (payload: TBooking) => {
 };
 
 const GetBookingsFromDb = async () => {
-  const result = await BookingModel.find()
-    .populate('slots')
-    .populate('room')
-    .populate('user');
-  return result;
+  try {
+    const result = await BookingModel.find({})
+      .populate({
+        path: 'slots',
+        populate: {
+          path: 'room',
+        },
+      })
+      .populate('room')
+      .populate('user')
+      .exec();
+    return result;
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    throw error;
+  }
 };
 
 const GetUserBooking = async (id: string) => {
@@ -37,6 +48,7 @@ const GetUserBooking = async (id: string) => {
 };
 
 const UpdateRoomIntoDb = async (id: string, payload: Partial<TBooking>) => {
+  console.log(payload);
   const result = await BookingModel.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });

@@ -49,10 +49,10 @@ const FindSlotsFromDb = async (req: any) => {
       query.room = roomId.trim();
     }
 
-    const result = SlotModel.find(req);
+    const result = SlotModel.find(req).populate('room').exec();
     return result;
   } else {
-    const result = SlotModel.find();
+    const result = SlotModel.find().populate('room').exec();
     return result;
   }
 };
